@@ -1,0 +1,85 @@
+<mvc:View id="view1" controllerName="createPO.CreatePurchaseOrder.controller.View1" xmlns:mvc="sap.ui.core.mvc" displayBlock="false"
+	xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<content>
+						<l:VerticalLayout width="100%">
+							<l:content>
+								<Panel id="_docPropsPanel">
+									<headerToolbar>
+										<Toolbar>
+											<Title level="H2" text="{i18n>PurchaseOrder}"/>
+										</Toolbar>
+									</headerToolbar>
+									<f:Form editable="true">
+										<f:layout>
+											<f:ResponsiveGridLayout/>
+											<!--labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"-->
+											<!--emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"-->
+										</f:layout>
+										<f:FormContainer expanded="true">
+											<f:formElements>
+												<f:FormElement label="{i18n>DocumentNumber}">
+													<Input id="_docNumberInput" value="{staticModel>/documentNumber}" enabled="false"/>
+												</f:FormElement>
+												<f:FormElement label="{i18n>DocumentType}">
+													<ComboBox value="{staticModel>/documentNumber}" showSecondaryValues="true" selectionChange="handleDocPropSelectionChange" id="docType"
+														required="true"/>
+												</f:FormElement>
+												<f:FormElement label="{i18n>CurrentDate}">
+													<DatePicker id="_CurrentDate" value="{staticModel>/currentDate}" valueFormat="yyyy-MM-dd" displayFormat="long" change="handleDateChange"
+														class="sapUiSmallMarginBottom" required="true" enabled="false"/>
+												</f:FormElement>
+												<f:FormElement label="{i18n>Requestor}">
+													<Input id="_Requestor" value="{staticModel>/currentUser/displayName}" enabled="false" change="onProjectPropChange"/>
+												</f:FormElement>
+												<f:FormElement label="{i18n>Deadline}">
+													<DatePicker id="_deadlineDatePicker" value="{/Document/PublishingDeadline}" valueFormat="yyyy-MM-dd" displayFormat="long"
+														change="handleDateChange" class="sapUiSmallMarginBottom" required="true"/>
+												</f:FormElement>
+												<f:FormElement label="{i18n>MaterialDescription}">
+													<Input id="_materialDescription" value="{/Document/MaterialDescription}" change="onProjectPropChange"/>
+												</f:FormElement>
+												<f:FormElement label="{i18n>OrderValue}">
+													<Input id="_purchaseOrderValue" value="{/Document/OrderValue}" change="onProjectPropChange"/>
+												</f:FormElement>
+												<f:FormElement label="{i18n>Quantity}">
+													<Input id="_quantity" value="{/Document/Quantity}" change="onProjectPropChange"/>
+												</f:FormElement>
+												<f:FormElement label="{i18n>Price}">
+													<Input id="_price" value="{/Document/Price}" change="onProjectPropChange"/>
+												</f:FormElement>
+												<f:FormElement label="{i18n>Attachment}">
+													<u:FileUploader required="true" id="_attachment" width="100%" name="JAMFileUpload" value="{/Document/FileName}"/>
+												</f:FormElement>
+											</f:formElements>
+										</f:FormContainer>
+									</f:Form>
+								</Panel>
+							</l:content>
+							<l:content>
+								<Panel id="_commentsPanel">
+									<headerToolbar>
+										<Toolbar>
+											<Title level="H2" text="{i18n>CommentsArea}"/>
+										</Toolbar>
+									</headerToolbar>
+									<TextArea rows="3" width="100%" id="_commentsTextArea" value="{/Document/RequesterComments}"/>
+								</Panel>
+							</l:content>
+						</l:VerticalLayout>
+					</content>
+					<footer>
+						<Toolbar id="actionsToolbar">
+							<ToolbarSpacer/>
+							<Button id="myButton" text="{i18n>StartApprovalBtn}" type="Accept" press="startWorkflow"/>
+							<Button id="cancelButton" text="{i18n>ResetBtn}" type="Reject" press="resetData"/>
+						</Toolbar>
+					</footer>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
